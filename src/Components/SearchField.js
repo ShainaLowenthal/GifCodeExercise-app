@@ -10,7 +10,8 @@ class SearchField extends Component{
     super(props);
     this.state =
     {
-        url: 'https:/api.giphy.com/v1/gifs/search?api_key=F2osj4YaZo0MWzD1cQgFhh87raC22C7D&q=',
+        url: '',
+        //url: 'https:/api.giphy.com/v1/gifs/search?api_key=F2osj4YaZo0MWzD1cQgFhh87raC22C7D&q=',
         //=trending&limit=25&offset=0&rating=G&lang=en
         input:'',
         gif: []
@@ -18,7 +19,22 @@ class SearchField extends Component{
     }
 }
 
-
+handleApiUrl = (event) =>
+{
+    if(event.target.value === 'trending')
+    {
+        this.setState({url: 'https:/api.giphy.com/v1/gifs/trending?api_key=F2osj4YaZo0MWzD1cQgFhh87raC22C7D', input: event.target.value})
+    }
+    if(event.target.value === 'random')
+    {
+        this.setState({url: 'https:/api.giphy.com/v1/gifs/random?api_key=F2osj4YaZo0MWzD1cQgFhh87raC22C7D', input: event.target.value})
+    }
+    else
+    {
+        this.setState({url: 'https:/api.giphy.com/v1/gifs/search?api_key=F2osj4YaZo0MWzD1cQgFhh87raC22C7D&q=', input: event.target.value})
+    }
+    
+}
 handleSubmit = () =>
 {
     axios.get(this.state.url + this.state.input).then(response=>{
@@ -44,7 +60,7 @@ this.setState({input: event.target.value});
                     })
                 }</div>
                 
-            <input  type ="text" value={this.state.input} onChange ={this.handleChange}/>
+            <input  type ="text" value={this.state.input} onChange ={this.handleApiUrl}/>
             <button onClick ={this.handleSubmit}>Submit</button>
             
             </div>
