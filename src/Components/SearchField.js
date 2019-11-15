@@ -4,6 +4,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import GifCard from './GifCard.js';
+import '../App.css';
 
 class SearchField extends Component{
     constructor(props){
@@ -51,17 +52,22 @@ this.setState({input: event.target.value});
 }
     render(){
         console.log(this.state.gif)
-        return<div>
-            
-                <div>{
+        return<div className = "searchWrapper">
+             <div className = "heading">This is my Giphy Search App</div>
+             <input  className = "searchBar" type = "text" value={this.state.input} onChange ={this.handleApiUrl}/>
+            <button className = "searchButton" onClick ={this.handleSubmit}>Submit</button>
+                <div  className = "imagesWrapper">
+                {
+                    
+                   
                     this.state.gif.map(obj =>{
                         console.log(obj.images);
                         return <GifCard data = {obj.images.downsized.url} key={obj.id}/>
+                        
                     })
                 }</div>
                 
-            <input  type ="text" value={this.state.input} onChange ={this.handleApiUrl}/>
-            <button onClick ={this.handleSubmit}>Submit</button>
+          
             
             </div>
 
